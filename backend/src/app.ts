@@ -1,14 +1,10 @@
-const express = require('express');
 import * as dotenv from "dotenv";
-import {Request, Response} from 'express'; 
-const cors = require('cors');
-const app = express();
+import authRoutes from './routes/authRoutes';
 dotenv.config(); 
-
-const PORT = process.env.PORT;
-const CLIENT_ORIGIN_URL = process.env.CLIENT_ORIGIN_URL;
-
-
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const PORT = process.env.PORT || 8000;
 
 //Convert JSON requests to javascript object 
 app.use(express.json());
@@ -23,16 +19,7 @@ app.use(cors({
     credentials: true,
 }))
 
-if (!(process.env.PORT && process.env.CLIENT_ORIGIN_URL)) {
-    throw new Error(
-      "Missing required environment variables. Check docs for more info."
-    );
-  }
-
-//Testing app
-app.get('/', (req: Request,res: Response)=> {
-    res.send("Hello world!")
-})
+app.use('/auth', authRoutes);
 
 app.listen(PORT, ()=> {
     console.log(`Server is running on port ${PORT}`)
