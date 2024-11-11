@@ -3,6 +3,7 @@ import admin  from '../config/firebase-admin';
 import { validEmail, validPassword } from '../utils/validators';
 
 
+
 export const createAccount = async (req: Request, res: Response) => {
     const { email, password } = req.body; 
     try {
@@ -32,3 +33,18 @@ export const createAccount = async (req: Request, res: Response) => {
     }
 }
 
+export const signIn = async (req: Request, res: Response): Promise<Response>  => {
+    const { email, password} = req.body;
+
+    try {
+        if (!validEmail(email)) {
+            return res.status(400).json({error: 'Invalid email format'});
+        }
+        const user = await admin.auth().getUserByEmail(email);
+        const token = await admin.auth().createCustomToken(user.uid);
+        return res.status(200).json({message: 'Sign in success', token: token})
+    }   catch (error) {
+        console.error('Sign-in error', error);
+        return res.status(500).json({error: 'Failed to sign in'})
+    }
+}
