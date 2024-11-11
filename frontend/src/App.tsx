@@ -1,9 +1,21 @@
 import './App.css'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Homepage } from './Homepage.tsx';
+import { SignInPage } from './components/SignInPage';
+import { SignUpPage } from './components/SignUpPage';
 
-export default function App() {
+
+
+export const App = () => {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <>
+        <Router>
+          <Routes>
+            <Route path="/" element={ <Homepage /> } />
+            <Route path="/signin" element={ <SignInPage/> } />
+            <Route path="/signup" element= { <SignUpPage/> } />
+          </Routes>
+        </Router>
+    </>
   )
 }
