@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import InputField from '../InputField';
+import { InputField } from '../InputField';
 import axios from "axios";
 import { ErrorMessage } from '../ErrorMessage'; 
 
@@ -10,22 +10,21 @@ export const SignUpPage = () => {
     const backend_url = import.meta.env.VITE_BASE_URL;   
     const [errMessage, setErrMessage] = useState<string>('')
 
-
-    type inputValues = {
+    type SignUpValues = {
         email: string,
         first_name: string,
         last_name: string
         password: string
     }
 
-    const inputValues: inputValues = {
+    const signUpValues: SignUpValues = {
         email: '',
         password: '',
         first_name: '',
         last_name: '', 
     };
 
-    const [signUpForm , setSignUpForm] = useState<inputValues>(inputValues); 
+    const [signUpForm , setSignUpForm] = useState<SignUpValues>(signUpValues); 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -65,7 +64,7 @@ export const SignUpPage = () => {
         <>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+            <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white-900">
                 Sign up for an account
             </h2>
             </div>
@@ -73,13 +72,7 @@ export const SignUpPage = () => {
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form onSubmit={handleSubmit} method="POST" className="space-y-6">
                 
-                <InputField 
-                    label="Email Address"
-                    name="email"
-                    type="email"
-                    value={signUpForm.email}
-                    onChange={handleInputChange}
-                /> 
+                
                 <InputField 
                     label="First Name"
                     name="first_name"
@@ -94,7 +87,13 @@ export const SignUpPage = () => {
                     value={signUpForm.last_name}
                     onChange={handleInputChange}
                 /> 
-            
+                <InputField 
+                        label="Email Address"
+                        name="email"
+                        type="email"
+                        value={signUpForm.email}
+                        onChange={handleInputChange}
+                    /> 
                 <InputField 
                     label="Password"
                     name="password"
