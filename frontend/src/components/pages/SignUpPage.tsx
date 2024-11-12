@@ -3,11 +3,15 @@ import { useState } from 'react';
 import { InputField } from '../InputField';
 import axios from "axios";
 import { ErrorMessage } from '../ErrorMessage'; 
+import { NavLink, useNavigate } from 'react-router-dom';
+
 
 
 export const SignUpPage = () => {
 
     const backend_url = import.meta.env.VITE_BASE_URL;   
+    const navigate = useNavigate(); 
+
     const [errMessage, setErrMessage] = useState<string>('')
 
     type SignUpValues = {
@@ -47,7 +51,9 @@ export const SignUpPage = () => {
 
             })
         if (response) {
+            navigate('/signin')
             console.log(response)
+            setErrMessage("")
         }
         else {
             throw Error("No response")

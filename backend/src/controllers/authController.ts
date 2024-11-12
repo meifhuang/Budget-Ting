@@ -49,28 +49,3 @@ export const createAccount = async (req: Request, res: Response) => {
         }
     }
 }
-
-
-// export const signIn = async (req: Request, res: Response) => {
-//     const { email, password } = req.body;
-
-//     try {
-//         if (!validEmail(email)) {
-//             res.status(400).json({error: 'Invalid email format'});
-//             return; 
-//         }
-//         const firebaseAPIKey = process.env.FIREBASE_API_KEY
-//         const signInUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebaseAPIKey}`;
-//         const response = await axios.post(signInUrl, {
-//             email, password, returnSecureToken: true}) 
-
-        
-//         res.status(200).json({message: 'Sign in success', token: token})
-//         return; 
-
-//     }   catch (error) {
-//         console.error('Sign-in error', error);
-//         res.status(500).json({error: 'Failed to sign in'})
-//         return;
-//     }
-// }

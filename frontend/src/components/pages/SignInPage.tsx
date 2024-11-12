@@ -2,6 +2,11 @@ import { Link } from 'react-router-dom';
 import { ErrorMessage } from '../ErrorMessage.tsx'; 
 import { useState } from "react"; 
 import { InputField } from '../InputField.tsx';
+import { auth } from "../../config/firebaseConfig.ts";
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import axios from "axios";
+import { NavLink, useNavigate } from 'react-router-dom';
+
 
 export const SignInPage = () => {
 
@@ -17,6 +22,8 @@ export const SignInPage = () => {
     
     const [errMessage, setErrMessage] = useState<string>('')
     const [signInForm , setSignInForm] = useState<SignInValues>(signInValues); 
+    const navigate = useNavigate(); 
+
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -24,8 +31,20 @@ export const SignInPage = () => {
             ...signInForm, 
             [name]: value
         })
-    }
+    } 
 
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        try {
+            const user = await signInWithEmailAndPassword(auth, signInForm.email, signInForm.password)
+            console.log('Signed in', user);
+            navigate('/dashboard');
+        }
+        catch (err) {
+            console.error("Error signing in", err);
+        }
+
+    }
     
     return (
         <>
@@ -37,7 +56,7 @@ export const SignInPage = () => {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form action="#" method="POST" className="space-y-6">
+            <form action="#" onSubmit={handleSubmit} method="POST" className="space-y-6">
                
                 <InputField 
                         label="Email Address"
@@ -56,6 +75,7 @@ export const SignInPage = () => {
                 <button
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    
                 >
                     Sign in
                 </button>
