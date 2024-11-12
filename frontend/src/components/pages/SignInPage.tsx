@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
+import { ErrorMessage } from '../ErrorMessage.tsx'; 
+import { useState } from "react"; 
 
 export const SignInPage = () => {
+    
+    const [errMessage, setErrMessage] = useState<string>('')
+
+
     return (
         <>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -27,7 +33,7 @@ export const SignInPage = () => {
                     />
                 </div>
                 </div>
-
+                <ErrorMessage 
                 <div>
                 <div className="flex items-center justify-between">
                     <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">

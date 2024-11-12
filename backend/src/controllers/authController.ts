@@ -13,7 +13,7 @@ export const createAccount = async (req: Request, res: Response) => {
         }
         const userRecord = await admin.auth().getUserByEmail(email).catch(() => null);
         if (userRecord) {
-            res.status(400).json({ error: 'Email already exists.' });
+            res.status(400).json({ error: 'Email already exists. Please login or create another account.' });
             return;
         }
         const passwordValidation = validPassword(password)
