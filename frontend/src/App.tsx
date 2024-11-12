@@ -1,8 +1,8 @@
 import './App.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Homepage } from './Homepage.tsx';
-import { SignInPage } from './components/SignInPage';
-import { SignUpPage } from './components/SignUpPage';
+import { Homepage } from './components/pages/Homepage.tsx';
+import { SignInPage } from './components/pages/SignInPage.tsx';
+import { SignUpPage } from './components/pages/SignUpPage.tsx';
 
 
 
