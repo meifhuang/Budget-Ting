@@ -13,12 +13,16 @@ export const SignUpPage = () => {
 
     type inputValues = {
         email: string,
+        first_name: string,
+        last_name: string
         password: string
     }
 
     const inputValues: inputValues = {
         email: '',
-        password: ''
+        password: '',
+        first_name: '',
+        last_name: '', 
     };
 
     const [signUpForm , setSignUpForm] = useState<inputValues>(inputValues); 
@@ -74,6 +78,20 @@ export const SignUpPage = () => {
                     name="email"
                     type="email"
                     value={signUpForm.email}
+                    onChange={handleInputChange}
+                /> 
+                <InputField 
+                    label="First Name"
+                    name="first_name"
+                    type="first_name"
+                    value={signUpForm.first_name}
+                    onChange={handleInputChange}
+                /> 
+                <InputField 
+                    label="Last Name"
+                    name="last_name"
+                    type="last_name"
+                    value={signUpForm.last_name}
                     onChange={handleInputChange}
                 /> 
             
