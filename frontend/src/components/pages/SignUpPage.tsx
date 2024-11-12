@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import InputField from './InputField';
+import InputField from '../InputField';
 import axios from "axios";
+import { ErrorMessage } from '../ErrorMessage'; 
+
 
 export const SignUpPage = () => {
 
     const backend_url = import.meta.env.VITE_BASE_URL;   
+    const [errMessage, setErrMessage] = useState<string>('')
+
 
     type inputValues = {
         email: string,
@@ -46,8 +50,9 @@ export const SignUpPage = () => {
             throw Error("No response")
         }
         }
-        catch (err) {
+        catch (err: any ) {
             console.error(err);
+            setErrMessage(err.response.data.error)
         }
     }
 
@@ -71,7 +76,7 @@ export const SignUpPage = () => {
                     value={signUpForm.email}
                     onChange={handleInputChange}
                 /> 
-
+            
                 <InputField 
                     label="Password"
                     name="password"
@@ -79,6 +84,8 @@ export const SignUpPage = () => {
                     value={signUpForm.password}
                     onChange={handleInputChange}
                 /> 
+                <ErrorMessage message={errMessage}/>
+
                 <div>
                 <button
                     type="submit"

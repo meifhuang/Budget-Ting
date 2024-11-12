@@ -17,7 +17,6 @@ const validPassword = (password: string): {valid: boolean, errors: string[]} => 
 //Email validator
 const validEmail = (email: string): boolean  => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    console.log(email)
     return emailRegex.test(email);
 }
 
