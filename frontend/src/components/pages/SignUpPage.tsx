@@ -9,7 +9,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 export const SignUpPage = () => {
 
-    const backend_url = import.meta.env.VITE_BASE_URL;   
+    const backend_url = import.meta.env.VITE_BASE_URL 
     const navigate = useNavigate(); 
 
     const [errMessage, setErrMessage] = useState<string>('')
@@ -46,7 +46,9 @@ export const SignUpPage = () => {
                 url: `${backend_url}/auth/signup`,
                 data: {
                     email: signUpForm.email,
-                    password: signUpForm.password
+                    password: signUpForm.password,
+                    first_name: signUpForm.first_name,
+                    last_name: signUpForm.last_name
                 }
 
             })
