@@ -1,4 +1,4 @@
-export const InputField = ({label, name, type, value, onChange}: {label: string; name: string; type: string; value: string; onChange: any}) => {
+export const InputField = ({label, name, type, onChange}: {label: string; name: string; type: string; value: string; onChange: any}) => {
     return (
         <div> 
             <div>
@@ -9,10 +9,10 @@ export const InputField = ({label, name, type, value, onChange}: {label: string;
                     <input
                     id={name}
                     name={name}
-                    type={name}
+                    type={type}
                     onChange={onChange}
                     required
-                    className="block w-full rounded-md border-0 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                    className="block w-full rounded-md border-0 p-2 text-white-500 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-black-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                     />
                     </div>
                 </div>

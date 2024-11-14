@@ -6,6 +6,8 @@ import { auth } from "../../config/firebaseConfig.ts";
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import axios from "axios";
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useAuth } from "../AuthProvider.tsx";
+
 
 
 export const SignInPage = () => {
@@ -19,11 +21,12 @@ export const SignInPage = () => {
         email: '',
         password: ''
     }
-    
+
+    const navigate = useNavigate(); 
     const [errMessage, setErrMessage] = useState<string>('')
     const [signInForm , setSignInForm] = useState<SignInValues>(signInValues); 
-    const navigate = useNavigate(); 
-
+    const {user, setUser} = useAuth(); 
+ 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -36,12 +39,18 @@ export const SignInPage = () => {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         try {
-            const user = await signInWithEmailAndPassword(auth, signInForm.email, signInForm.password)
-            console.log('Signed in', user);
+            const userData = await signInWithEmailAndPassword(auth, signInForm.email, signInForm.password)
+            const userInfo = { 
+                authId: userData.user.uid,
+                email: userData.user.email,
+            }
+            setUser(userInfo);
             navigate('/dashboard');
+            
         }
-        catch (err) {
+        catch (err: any) {
             console.error("Error signing in", err);
+            setErrMessage("Incorrect email/password. Please try again.");
         }
 
     }
@@ -72,6 +81,9 @@ export const SignInPage = () => {
                     value={signInForm.password}
                     onChange={handleInputChange}
                 /> 
+
+                <ErrorMessage message={errMessage}/>
+
                 <button
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

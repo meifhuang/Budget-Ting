@@ -31,7 +31,7 @@ export const createAccount = async (req: Request, res: Response) => {
             email, 
             password,
         });
-        
+    
         const userValues = [user.uid, first_name, last_name, email, user.metadata.creationTime]
         console.log(userValues);
         const query = `INSERT INTO users(auth_id, first_name, last_name, email, created_at) VALUES($1, $2, $3, $4, $5)`; 
