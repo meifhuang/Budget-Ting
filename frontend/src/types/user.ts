@@ -1,8 +1,8 @@
-type User = {
+export type User = {
     id: string;
     email: string;
-    firstName: string;
-    lastName: string;
-    authId: string;
-    createdAt: Date; 
+    first_name: string;
+    last_name: string;
+    auth_id: string;
+    created_at: Date; 
 }

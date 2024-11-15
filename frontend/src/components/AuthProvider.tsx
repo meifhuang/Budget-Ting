@@ -2,19 +2,13 @@ import { useContext, createContext, useState, useEffect} from 'react';
 import { User } from "../types/user";
 import { auth } from '../config/firebaseConfig';
 import { onAuthStateChanged } from "firebase/auth";
+import axios from 'axios';
+
 
 
 type AuthContextType = {
     user: User | null;
     setUser: React.Dispatch<React.SetStateAction<User | null>>; 
-}
-
-async function fetchUserData (authId: string): Promise<User | null>  {
-    const response = await fetch(`/api/users/${authId}`)
-    if (response) {
-        return await response.json()
-    }
-    return null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -26,15 +20,22 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
-                const userData = await fetchUserData(currentUser.uid); 
-                console.log(userData)
-                setUser(userData);
+                try { 
+                console.log("CURRENT USER", currentUser);
+                const userData = await axios.get(`http://localhost:8080/auth/signin/${currentUser.uid}`);
+                console.log(userData.data);
+                setUser(userData.data);
+                }
+                catch (err) {
+                    console.error(err);
+                    setUser(null); 
+                }
             }
             else {
                 setUser(null); 
             }
         })
-        return () => unsubscribe()
+        return () => unsubscribe();
     },[])
 
     return (

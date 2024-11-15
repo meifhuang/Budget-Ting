@@ -5,6 +5,7 @@ import { pool } from "../db";
 
 
 
+
 export const createAccount = async (req: Request, res: Response) => {
     const { email, password, first_name, last_name } = req.body;
 
@@ -37,8 +38,13 @@ export const createAccount = async (req: Request, res: Response) => {
         const query = `INSERT INTO users(auth_id, first_name, last_name, email, created_at) VALUES($1, $2, $3, $4, $5)`; 
         const createdUser = await pool.query(query, userValues);
         
-        // console.log(createdUser);
-        res.status(201).json({message: 'User created successfully'});
+        if (createdUser) {
+            res.status(201).json({message: 'User created successfully'});
+        }
+        else {
+            res.status(500).json({message: 'User creation unsuccessful'})
+        }
+
         return; 
         }
     }
@@ -57,4 +63,23 @@ export const createAccount = async (req: Request, res: Response) => {
         return;
         }
     }
+}
+
+
+export const signIn = async (req: Request, res: Response) => {
+    const { authId } = req.params;
+    const query = `SELECT * FROM users WHERE auth_id = $1` ; 
+    try {
+        const queried = await pool.query(query, [authId]); 
+        if (queried.rows.length > 0) {
+            res.status(200).json(queried.rows[0]);
+        }
+        else {
+            res.status(404).json({error: "User not found"});
+        }
+    }
+    catch (err) { 
+        console.error(err)
+        res.status(500).json({error: 'Internal server error'});
+        }
 }

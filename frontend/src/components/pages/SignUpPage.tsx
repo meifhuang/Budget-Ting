@@ -54,7 +54,6 @@ export const SignUpPage = () => {
             })
         if (response) {
             navigate('/signin')
-            console.log(response)
             setErrMessage("")
         }
         else {

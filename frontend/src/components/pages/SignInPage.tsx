@@ -4,9 +4,9 @@ import { useState } from "react";
 import { InputField } from '../InputField.tsx';
 import { auth } from "../../config/firebaseConfig.ts";
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import axios from "axios";
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from "../AuthProvider.tsx";
+import axios from 'axios';
 
 
 
@@ -25,7 +25,7 @@ export const SignInPage = () => {
     const navigate = useNavigate(); 
     const [errMessage, setErrMessage] = useState<string>('')
     const [signInForm , setSignInForm] = useState<SignInValues>(signInValues); 
-    const {user, setUser} = useAuth(); 
+    // const {user, setUser} = useAuth(); 
  
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,15 +39,10 @@ export const SignInPage = () => {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         try {
-            const userData = await signInWithEmailAndPassword(auth, signInForm.email, signInForm.password)
-            const userInfo = { 
-                authId: userData.user.uid,
-                email: userData.user.email,
-            }
-            setUser(userInfo);
+            await signInWithEmailAndPassword(auth, signInForm.email, signInForm.password)
+            // const { uid } = userCredentials.user;
             navigate('/dashboard');
-            
-        }
+            }
         catch (err: any) {
             console.error("Error signing in", err);
             setErrMessage("Incorrect email/password. Please try again.");
