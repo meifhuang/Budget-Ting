@@ -4,6 +4,7 @@ import { Bars3Icon, BellIcon, XMarkIcon, ChevronDownIcon } from '@heroicons/reac
 import { signOut } from "firebase/auth";
 import { auth } from "../../config/firebaseConfig";
 import { NavLink, useNavigate } from 'react-router-dom';
+import { MouseEventHandler } from "react";
 
 
 export const Dashboard = () => {
@@ -29,12 +30,19 @@ export const Dashboard = () => {
         { name: 'Net Worth', href: '#', current: false },
       ]
 
-    const userNavigation = [
-    { name: 'Your Profile', onClick: '#' },
-    { name: 'Settings', onClick: '#' },
-    { name: 'Sign out', onClick: handleSignOut },
-    ]
+    type NavigationItem = {
+        name: string;
+        href?: string;
+        onClick?: React.MouseEventHandler<HTMLButtonElement>;
+    };
 
+    const userNavigation:NavigationItem[] = [
+
+        { name: 'Your Profile', href: '#' },
+        { name: 'Settings', href: '#' },
+        { name: 'Sign out', onClick: handleSignOut },
+        
+    ]
 
 
     function classNames(...classes: any) {
@@ -45,17 +53,16 @@ export const Dashboard = () => {
     return (
         <div className="min-h-full">
             <Disclosure as="nav" className="bg-gray-800">
-                <div className="mx-auto px-4 sm:px-6 lg:px-8"> 
+                <div className="mx-auto px-5 sm:px-6 lg:px-8"> 
                     <div className="flex h-16 items-center justify-between">
-                        <div className="flex items-center">
-                            <div className="shrink-0">
-                            <img
-                                alt="Budget-Ting"
-                                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
-                                className="size-8"
-                            />
-                            <div className="hidden md:block">
-                                <div className="ml-12 flex items-baseline space-x-4">
+                        <div className="flex justify-between">
+                                <img
+                                    alt="Budget-Ting"
+                                    src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
+                                    className="size-8"
+                                />
+                                <div className="hidden md:block mx-10">
+                                <div className="flex items-baseline space-x-4">
                                     {navigation.map((item) => (
                                         <button
                                         key={item.name}
@@ -70,7 +77,7 @@ export const Dashboard = () => {
                                     </button> 
                                     ))} 
                                 </div>
-                            </div>
+                            {/* </div> */}
                         </div>
                     </div>
                      {/* Profile dropdown */}
@@ -88,12 +95,13 @@ export const Dashboard = () => {
                     >
                       {userNavigation.map((item) => (
                         <MenuItem key={item.name}>
-                          <button
-                            onClick={item.onClick}
-                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
-                          >
-                            {item.name}
-                          </button>
+                         
+                            <button
+                                onClick={item.onClick}
+                                className="w-full items-center px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
+                            >
+                                {item.name}
+                            </button>
                         </MenuItem>
                       ))}
                     </MenuItems>
