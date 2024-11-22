@@ -21,7 +21,6 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
                 try { 
-                console.log("CURRENT USER", currentUser);
                 const userData = await axios.get(`http://localhost:8080/auth/signin/${currentUser.uid}`);
                 console.log(userData.data);
                 setUser(userData.data);

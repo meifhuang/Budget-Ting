@@ -4,6 +4,7 @@ import { useState } from "react";
 import { InputField } from '../InputField.tsx';
 import { auth } from "../../config/firebaseConfig.ts";
 import { signInWithEmailAndPassword } from 'firebase/auth'
+
 import { NavLink, useNavigate } from 'react-router-dom';
 
 export const SignInPage = () => {
@@ -63,6 +64,7 @@ export const SignInPage = () => {
                         type="email"
                         value={signInForm.email}
                         onChange={handleInputChange}
+                        
                     /> 
                 <InputField 
                     label="Password"

@@ -1,30 +1,51 @@
 import { useAuth } from "../AuthProvider";
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, BellIcon, XMarkIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
+import { signOut } from "firebase/auth";
+import { auth } from "../../config/firebaseConfig";
+import { NavLink, useNavigate } from 'react-router-dom';
 
 
 export const Dashboard = () => {
 
     const { user } = useAuth(); 
+    const navigate = useNavigate(); 
+
+    const handleSignOut = async () => {
+        try { 
+            await signOut(auth); 
+            navigate('/signin')
+            console.log("signed out")
+        }
+        catch (err:any) {
+            console.error("Error signing out", err)
+        }
+    } 
 
     const navigation = [
         { name: 'Dashboard', href: '#', current: true },
-        { name: 'Team', href: '#', current: false },
-        { name: 'Projects', href: '#', current: false },
-        { name: 'Calendar', href: '#', current: false },
-        { name: 'Reports', href: '#', current: false },
+        { name: 'Budget', href: '#', current: false },
+        { name: 'Expense', href: '#', current: false },
+        { name: 'Net Worth', href: '#', current: false },
       ]
 
     const userNavigation = [
-    { name: 'Your Profile', href: '#' },
-    { name: 'Settings', href: '#' },
-    { name: 'Sign out', href: '#' },
+    { name: 'Your Profile', onClick: '#' },
+    { name: 'Settings', onClick: '#' },
+    { name: 'Sign out', onClick: handleSignOut },
     ]
+
+
+
+    function classNames(...classes: any) {
+        return classes.filter(Boolean).join(' ')
+      }
+
 
     return (
         <div className="min-h-full">
             <Disclosure as="nav" className="bg-gray-800">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"> 
+                <div className="mx-auto px-4 sm:px-6 lg:px-8"> 
                     <div className="flex h-16 items-center justify-between">
                         <div className="flex items-center">
                             <div className="shrink-0">
@@ -34,27 +55,31 @@ export const Dashboard = () => {
                                 className="size-8"
                             />
                             <div className="hidden md:block">
-                                <div className="ml-10 flex items-baseline space-x-4">
+                                <div className="ml-12 flex items-baseline space-x-4">
                                     {navigation.map((item) => (
-                                        <a 
+                                        <button
                                         key={item.name}
-                                        href={item.href}
+                                        
+                                        // href={item.href}
                                         aria-current={item.current ? 'page' : undefined}
+                                        className={classNames(
+                                            item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-500 hover:text-white',
+                                            'rounded-md px-3 py-2 text-sm font-medium',
+                                          )}
                                     >{item.name}
-                                    </a> 
+                                    </button> 
                                     ))} 
                                 </div>
                             </div>
                         </div>
                     </div>
                      {/* Profile dropdown */}
-                  <Menu as="div" className="relative ml-3">
+                  <Menu as="div" className="relative ml-3 inline-block text-left">
                     <div>
-                      <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                      <MenuButton className="relative flex max-w-xs items-center gap-x-1.5 rounded-md bg-white-800 px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-900">
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">Open user menu</span>
-                        { user?.first_name } { user?.last_name }
-                        
+                        { user?.first_name } { user?.last_name } <ChevronDownIcon aria-hidden="true" className="-mr-1 size-5 text-gray-400" />
                       </MenuButton>
                     </div>
                     <MenuItems
@@ -63,12 +88,12 @@ export const Dashboard = () => {
                     >
                       {userNavigation.map((item) => (
                         <MenuItem key={item.name}>
-                          <a
-                            href={item.href}
+                          <button
+                            onClick={item.onClick}
                             className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
                           >
                             {item.name}
-                          </a>
+                          </button>
                         </MenuItem>
                       ))}
                     </MenuItems>
