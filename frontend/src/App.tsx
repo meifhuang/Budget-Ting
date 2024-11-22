@@ -4,6 +4,9 @@ import { Homepage } from './components/pages/Homepage.tsx';
 import { SignInPage } from './components/pages/SignInPage.tsx';
 import { SignUpPage } from './components/pages/SignUpPage.tsx';
 import { Dashboard } from './components/pages/Dashboard.tsx';
+import { NetWorth } from "./components/pages/NetWorth.tsx"; 
+import { Budget } from "./components/pages/Budget.tsx";
+import { Expense } from "./components/pages/Expense.tsx";
 
 
 export const App = () => {
@@ -15,6 +18,9 @@ export const App = () => {
               <Route path="/signin" element={ <SignInPage/> } />
               <Route path="/signup" element= { <SignUpPage/> } />
               <Route path="/dashboard" element= { <Dashboard/> } />
+              <Route path="/networth" element={<NetWorth />} />
+              <Route path="/budget" element={<Budget />} />
+              <Route path="/expense" element={<Expense />} />
             </Routes>
           </Router>
     </>
