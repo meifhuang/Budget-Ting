@@ -6,7 +6,7 @@ export const Dashboard = () => {
 
     return (
         <>
-        <h1> Welcome {user?.first_name}</h1>
+        <h1> Welcome {user?.first_name} {user?.last_name} </h1>
         </>
     )
 }

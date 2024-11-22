@@ -34,7 +34,6 @@ export const createAccount = async (req: Request, res: Response) => {
         });
     
         const userValues = [user.uid, first_name, last_name, email, user.metadata.creationTime]
-        console.log(userValues);
         const query = `INSERT INTO users(auth_id, first_name, last_name, email, created_at) VALUES($1, $2, $3, $4, $5)`; 
         const createdUser = await pool.query(query, userValues);
         
@@ -49,7 +48,6 @@ export const createAccount = async (req: Request, res: Response) => {
         }
     }
     catch (error: any) {
-        // console.error("Error creating user:", error);
         if (error.code === 'auth/email-already-exists') {
             res.status(400).json({error: 'Email already exists'})
             return;

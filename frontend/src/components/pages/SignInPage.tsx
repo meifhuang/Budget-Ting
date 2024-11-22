@@ -5,10 +5,6 @@ import { InputField } from '../InputField.tsx';
 import { auth } from "../../config/firebaseConfig.ts";
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useAuth } from "../AuthProvider.tsx";
-import axios from 'axios';
-
-
 
 export const SignInPage = () => {
 
@@ -40,7 +36,6 @@ export const SignInPage = () => {
         e.preventDefault();
         try {
             await signInWithEmailAndPassword(auth, signInForm.email, signInForm.password)
-            // const { uid } = userCredentials.user;
             navigate('/dashboard');
             }
         catch (err: any) {
