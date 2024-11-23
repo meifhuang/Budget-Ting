@@ -27,7 +27,7 @@ export const Nav = () => {
         { name: 'Dashboard', to: '/dashboard' },
         { name: 'Budget', to:'/budget' },
         { name: 'Expense', to: '/expense' },
-        { name: 'Net Worth', to: '/networth' },
+        { name: 'Income', to: '/income' },
       ]
 
     type UserNavigationItem = {
