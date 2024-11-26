@@ -64,6 +64,8 @@ export const SignInPage = () => {
                         type="email"
                         value={signInForm.email}
                         onChange={handleInputChange}
+                        placeholder="email"
+                        labelColor="text-white-500"
                         
                     /> 
                 <InputField 
@@ -71,6 +73,8 @@ export const SignInPage = () => {
                     name="password"
                     type="password"
                     value={signInForm.password}
+                    placeholder="password"
+                    labelColor="text-white-500"
                     onChange={handleInputChange}
                 /> 
 

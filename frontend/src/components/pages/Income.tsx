@@ -4,6 +4,8 @@ import { Nav } from "../Nav";
 import { useState } from 'react';
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { InputField } from '../InputField';
+import { Income as IncomeType } from '../../types/income'; 
+
 
 
 export const Income = () => {
@@ -12,16 +14,46 @@ export const Income = () => {
     const navigate = useNavigate(); 
     const [open, setOpen] = useState<boolean | null >(false)
 
+    const incomeValues: IncomeType = {
+        userId: user?.auth_id || '', 
+        source: '',
+        amount: 0.00,
+        frequency: ''
+    }
+
+    const [incomeForm, setIncomeForm] = useState<IncomeType>(incomeValues)
+
     const toggleOpen = () => {
         setOpen(!open)
     }
 
-    const handleInputChange = () => {
-
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setIncomeForm({
+            ...incomeForm,
+            [name]: value
+        })
     }
 
-    
-    
+    const handleSubmitIncome = async (e: any) => {
+        e.preventDefault()
+        try {
+            console.log(incomeForm)
+            setOpen(false)
+            setIncomeForm({
+                userId: user?.auth_id || 0,
+                source: '',
+                amount: 0.00,
+                frequency: ''
+            })
+
+        }
+        catch (e) {
+            console.error(e)
+        }
+    }
+
+
     return (
         <div className="block">
             <Nav/> 
@@ -67,7 +99,7 @@ export const Income = () => {
                                             label="Source"
                                             name="source"
                                             type="text"
-                                            value=""
+                                            value={incomeForm.source}
                                             placeholder="Employment Income"
                                             labelColor="text-gray-900"
                                             onChange={handleInputChange}
@@ -77,35 +109,31 @@ export const Income = () => {
                                     label="Amount After Tax"
                                     name="amount"
                                     type="currency"
-                                    value=""
+                                    value={incomeForm.amount}
                                     placeholder="5000.00"
                                     labelColor="text-gray-900"
                                     onChange={handleInputChange}
+                                    
                                     />
                                 </div>
                                 <div className="sm:col-span-3">
-                                <label htmlFor="source" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
-                                    <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <label htmlFor="frequency" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                                    <select id="frequency"  required className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <option selected>Frequency</option>
-                                        <option value="">Daily</option>
-                                        <option value="">Weekly</option>
-                                        <option value="">Bi-Weekly</option>
-                                        <option value="">Monthly</option>
+                                        <option value="daily">Daily</option>
+                                        <option value="weekly">Weekly</option>
+                                        <option value="biweekly">Bi-Weekly</option>
+                                        <option value="monthly">Monthly</option>
                                     </select>
                                 </div>
                                 </div>
                             </div>
                         </div> 
                         </div> 
-                    </form> 
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <button
                 type="button"
-                onClick={() => setOpen(false)}
+                onSubmit={handleSubmitIncome}
                 className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
               >
                 Save
@@ -120,6 +148,12 @@ export const Income = () => {
                 Cancel
               </button>
             </div>
+                    </form> 
+                  </div>
+                </div>
+              </div>
+            </div>
+           
           </DialogPanel>
         </div>
       </div>
