@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { Nav } from "../Nav";
 import { useState } from 'react';
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
+import { InputField } from '../InputField';
 
 
 export const Income = () => {
@@ -14,6 +15,12 @@ export const Income = () => {
     const toggleOpen = () => {
         setOpen(!open)
     }
+
+    const handleInputChange = () => {
+
+    }
+
+    
     
     return (
         <div className="block">
@@ -50,23 +57,41 @@ export const Income = () => {
                   <DialogTitle as="h3" className="text-base font-semibold text-gray-900">
                     Add Income 
                   </DialogTitle>
-                  <div className="mt-2">
+                  <div className="">
                     <form>
                         <div className="space-y-12">
                             <div className="border-b border-gray-900/10 pb-12">
                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="sm:col-span-3">
-                                <label htmlFor="first-name" className="block text-sm/6 font-medium text-gray-900">
-                                    First name
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                    id="first-name"
-                                    name="first-name"
-                                    type="text"
-                                    autoComplete="given-name"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                                <InputField
+                                            label="Source"
+                                            name="source"
+                                            type="text"
+                                            value=""
+                                            placeholder="Employment Income"
+                                            labelColor="text-gray-900"
+                                            onChange={handleInputChange}
+                                            />
+                                <div className="sm:col-span-3">
+                                <InputField
+                                    label="Amount After Tax"
+                                    name="amount"
+                                    type="currency"
+                                    value=""
+                                    placeholder="5000.00"
+                                    labelColor="text-gray-900"
+                                    onChange={handleInputChange}
                                     />
+                                </div>
+                                <div className="sm:col-span-3">
+                                <label htmlFor="source" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                                    <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option selected>Frequency</option>
+                                        <option value="">Daily</option>
+                                        <option value="">Weekly</option>
+                                        <option value="">Bi-Weekly</option>
+                                        <option value="">Monthly</option>
+                                    </select>
                                 </div>
                                 </div>
                             </div>

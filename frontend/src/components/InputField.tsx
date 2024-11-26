@@ -1,8 +1,18 @@
-export const InputField = ({label, name, type, onChange}: {label: string; name: string; type: string; value: string; onChange: any}) => {
+interface InputProps {
+    name: string;
+    label: string;
+    type: string; 
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; 
+    labelColor: string;
+    value: string
+    placeholder: string; 
+}
+
+export const InputField: React.FC<InputProps> = ({label, name, type, onChange,labelColor, value, placeholder}: InputProps) => {
     return (
         <div> 
             <div>
-                <label htmlFor={name} className="block text-sm/6 font-medium text-white-900">
+                <label htmlFor={name} className={`block text-sm/6 font-medium ${labelColor} mb-1 `}>
                     {label}
                 </label>
                 <div className="mt-2">
@@ -11,8 +21,10 @@ export const InputField = ({label, name, type, onChange}: {label: string; name: 
                     name={name}
                     type={type}
                     onChange={onChange}
+                    value={value}
                     required
-                    className="block w-full rounded-md border-0 p-2 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-black-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                    placeholder={placeholder}
+                    className="block w-full rounded-md border-0 p-2 mb-2 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-black-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                     />
                     </div>
                 </div>

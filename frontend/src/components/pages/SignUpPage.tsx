@@ -86,6 +86,8 @@ export const SignUpPage = () => {
                     type="first_name"
                     value={signUpForm.first_name}
                     onChange={handleInputChange}
+                    labelColor="text-white-500"
+                    placeholder="First Name"
                 /> 
                 <InputField 
                     label="Last Name"
@@ -93,6 +95,8 @@ export const SignUpPage = () => {
                     type="last_name"
                     value={signUpForm.last_name}
                     onChange={handleInputChange}
+                    labelColor="text-white-500"
+                    placeholder="Last Name"
                 /> 
                 <InputField 
                         label="Email Address"
@@ -100,6 +104,8 @@ export const SignUpPage = () => {
                         type="email"
                         value={signUpForm.email}
                         onChange={handleInputChange}
+                        labelColor="text-white-500"
+                        placeholder="Email Address"
                     /> 
                 <InputField 
                     label="Password"
@@ -107,6 +113,8 @@ export const SignUpPage = () => {
                     type="password"
                     value={signUpForm.password}
                     onChange={handleInputChange}
+                    labelColor="text-white-500"
+                    placeholder="Password"
                 /> 
                 <ErrorMessage message={errMessage}/>
 
