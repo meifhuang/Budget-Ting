@@ -4,8 +4,6 @@ import { validEmail, validPassword } from '../utils/validators';
 import { pool } from "../db";
 
 
-
-
 export const createAccount = async (req: Request, res: Response) => {
     const { email, password, first_name, last_name } = req.body;
 

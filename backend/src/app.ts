@@ -2,6 +2,7 @@ import * as dotenv from 'dotenv';
 import * as path from 'path';
 dotenv.config({path: path.resolve(__dirname, '.env')}); //env
 import authRoutes from './routes/authRoutes';
+import incomeRoutes from './routes/incomeRoutes'; 
 import  express, { Express } from 'express';
 const app: Express = express(); 
 const cors = require('cors');
@@ -21,6 +22,7 @@ app.use(cors({
 }))
 
 app.use('/auth', authRoutes);
+app.use('/income', incomeRoutes);
 
 app.listen(PORT, ()=> {
     console.log(`Server is running on port ${PORT}`)

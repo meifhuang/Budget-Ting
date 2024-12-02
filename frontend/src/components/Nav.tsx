@@ -16,7 +16,6 @@ export const Nav = () => {
         try { 
             await signOut(auth); 
             navigate('/signin')
-            console.log("signed out")
         }
         catch (err:any) {
             console.error("Error signing out", err)

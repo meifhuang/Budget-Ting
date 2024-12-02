@@ -1,6 +1,6 @@
 export type Income = {
-    id: number, 
-    userId: number, 
+    id?: number, 
+    userId: string, 
     source: string, 
     amount: number, 
     frequency: string
